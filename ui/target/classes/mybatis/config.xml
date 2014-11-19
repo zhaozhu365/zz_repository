@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- properties属性配置文件，可以把多语言、安全检查字段等写在properties文件中，方便修改查看 -->
+	<properties resource="db.properties" />
+	
+	<typeAliases>
+		<!-- alias是设置别名 -->
+		<!-- type=实体beans的类路径 -->
+		<typeAlias alias="User" type="cn.gyyx.test.zhaozhu.beans.User"/>
+	</typeAliases>
+	
+	<!-- 数据库环境，default="account"表示默认数据库为id=account的数据库 -->
+	<environments default="account">
+		<!-- 数据库用id来标识 -->
+		<environment id="account">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<!-- value="${driver} 是调用 properties 文件中的属性 -->
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 在config.xml中注册xxxxMapper的配置文件 xxxxMapper.xml-->
+	<mappers>
+		<!-- 注意路径的区别 -->
+		<!-- user.xml与config.xml都在/ui/src/main/resources下时，resource="mybatis/user.xml" 
+		中的包名“mybatis/”要加上
+		 -->
+		<mapper resource="mybatis/user.xml" />
+		<!-- <mapper class="cn.gyyx.test.zhaozhu.dao.IUser" /> -->
+	</mappers>
+</configuration>

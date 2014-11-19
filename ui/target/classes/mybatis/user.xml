@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace与xxxxMapper.java的类路径 -->
+<mapper namespace="cn.gyyx.test.zhaozhu.dao.IUser">
+
+	<!-- id与xxxxMapper中的方法相同 ， -->
+	<!-- 参数类型parameterType为id="selectByAccount"这个方法中传的参数类型 -->
+	<!-- resultMap=""与下面的resultMap 的id属性相同-->
+	<!-- 根据账号查询用户 -->
+	<select id="selectByAccount" parameterType="String" resultMap="UserResultMap">
+		select * from user_info_tb where account=#{account}
+	</select>
+	
+	<select id="selectAllUser" parameterType="String" resultMap="UserResultMap">
+		select * from user_info_tb
+	</select>
+	
+	<!-- 添加用户 -->
+	<!-- id="add"方法中为实体bean对象，所以 参数类型为对象，值为实体bean的类路径 -->
+	<insert id="add" parameterType="cn.gyyx.test.zhaozhu.beans.User">
+		insert into user_info_tb (account,password_md5,seed,name,sex,tel,register_time) 
+		values (#{account},#{password},#{seed},#{name},#{sex},#{tel},#{registerTime})
+	</insert>
+	
+	<!-- resultMap 的id属要与上面的resultMap属性的值相同-->
+	<!-- 返回值类型type为beans中的实体类型 -->
+	<resultMap id="UserResultMap" type="User">
+		<id property="userId" column="user_id" />
+		<result property="account" column="account" />
+		<result property="password" column="password_md5" />
+		<result property="seed" column="seed" />
+		<result property="name" column="name" />
+		<result property="sex" column="sex" />
+		<result property="tel" column="tel" />
+		<result property="registerTime" column="register_time" />
+	</resultMap>
+</mapper>
